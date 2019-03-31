@@ -3,7 +3,7 @@ const Advertisement = require("./models").Advertisement;
 module.exports = {
 
 //#1
-  getAllAdvertisments(callback){
+  getAllAdvertisements(callback){
     return Advertisement.all()
 
 //#2
