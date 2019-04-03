@@ -3,7 +3,7 @@ const server = require("../../src/server");
 const base = "http://localhost:3000/advertisements/";
 const sequelize = require("../../src/db/models/index").sequelize;
 const Advertisement = require("../../src/db/models").Advertisement;
-describe("routes : advertisments", () => {
+describe("routes : advertisements", () => {
 
     beforeEach((done) => {
         this.advertisement;
@@ -44,13 +44,13 @@ describe("routes : advertisments", () => {
         it("should render a new advertisement form", (done) => {
           request.get(`${base}new`, (err, res, body) => {
             expect(err).toBeNull();
-            expect(body).toContain("New Advertisment");
+            expect(body).toContain("New Advertisement");
             done();
           });
         });
     
       });
-    describe("POST /advertisments/create", () => {
+    describe("POST /advertisements/create", () => {
         const options = {
           url: `${base}create`,
           form: {
@@ -83,7 +83,7 @@ describe("routes : advertisments", () => {
       });
       describe("GET /advertisements/:id", () => {
 
-        it("should render a view with the selected advertisment", (done) => {
+        it("should render a view with the selected advertisement", (done) => {
           request.get(`${base}${this.advertisement.id}`, (err, res, body) => {
             expect(err).toBeNull();
             expect(body).toContain("JS Frameworks");
@@ -97,7 +97,7 @@ describe("routes : advertisments", () => {
         it("should delete the advertisement with the associated ID", (done) => {
    
     //#1
-          Advertiement.all()
+          Advertisement.all()
           .then((advertisements) => {
    
     //#2
@@ -110,7 +110,7 @@ describe("routes : advertisments", () => {
               Advertisement.all()
               .then((advertisements) => {
                 expect(err).toBeNull();
-                expect(advertisments.length).toBe(advertismentCountBeforeDelete - 1);
+                expect(advertisements.length).toBe(advertisementCountBeforeDelete - 1);
                 done();
               })
    

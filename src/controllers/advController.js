@@ -18,9 +18,9 @@ module.exports = {
           title: req.body.title,
           description: req.body.description
         };
-        AdvertisementQueries.addAdvertisement(newAdvertisement, (err, advertisement) => {
+        advQueries.addAdvertisement(newAdvertisement, (err, advertisement) => {
           if(err){
-            res.redirect(500, "/advertisments/new");
+            res.redirect(500, "/advertisements/new");
           } else {
             res.redirect(303, `/advertisements/${advertisement.id}`);
           }
@@ -45,7 +45,7 @@ module.exports = {
             });
           },
           edit(req, res, next){
-            advQueries.getadvertisement(req.params.id, (err, advertisement) => {
+            advQueries.getAdvertisement(req.params.id, (err, advertisement) => {
               if(err || advertisement == null){
                 res.redirect(404, "/");
               } else {

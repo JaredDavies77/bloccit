@@ -28,15 +28,7 @@ module.exports = {
           as: "topicId",
         },
       },
-      advId: {
-        type: Sequelize.INTEGER,
-        onDelete: "CASCADE",
-        references: {
-          model: "Advertisements",
-          key: "id",
-          as: "advId",
-        },
-      }
+
     });
   },
   down: (queryInterface, Sequelize) => {
