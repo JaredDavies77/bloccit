@@ -14,7 +14,7 @@ describe("routes : posts", () => {
 
     sequelize.sync({force: true}).then((res) => {
 
-//#1
+
       Topic.create({
         title: "Winter Games",
         description: "Post your Winter Games stories."
@@ -94,12 +94,12 @@ describe("routes : posts", () => {
 
         it("should delete the post with the associated ID", (done) => {
    
-   //#1
+   
           expect(post.id).toBe(1);
    
           request.post(`${base}/${this.topic.id}/posts/${this.post.id}/destroy`, (err, res, body) => {
    
-   //#2
+
             Post.findById(1)
             .then((post) => {
               expect(err).toBeNull();
@@ -147,7 +147,6 @@ describe("routes : posts", () => {
             };
             request.post(options,
               (err, res, body) => {
-   
               expect(err).toBeNull();
    
               Post.findOne({

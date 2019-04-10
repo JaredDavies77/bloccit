@@ -3,7 +3,7 @@ const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 
 
-describe("Post", () => {
+describe("Topic", () => {
 
   beforeEach((done) => {
       

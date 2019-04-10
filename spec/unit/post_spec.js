@@ -1,6 +1,7 @@
 const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
+const Flair = require("../../src/db/models").Flair;
 
 
 describe("Post", () => {
@@ -10,6 +11,7 @@ describe("Post", () => {
 //#1
     this.topic;
     this.post;
+    this.flair;
     sequelize.sync({force: true}).then((res) => {
 
 //#2
@@ -28,7 +30,18 @@ describe("Post", () => {
         })
         .then((post) => {
           this.post = post;
-          done();
+        
+        Flair.create({
+          name: "This is a flair",
+          color: "Orange",
+//#5
+          topicId: this.topic.id,
+          postId: this.post.id
+        })
+        .then((flair) => {
+          this.flair = flair;
+        done();
+          });
         });
       })
       .catch((err) => {
@@ -89,19 +102,15 @@ describe("Post", () => {
 
     it("should associate a topic and a post together", (done) => {
 
-// #1
       Topic.create({
         title: "Challenges of interstellar travel",
         description: "1. The Wi-Fi is terrible"
       })
       .then((newTopic) => {
 
-// #2
         expect(this.post.topicId).toBe(this.topic.id);
-// #3
         this.post.setTopic(newTopic)
         .then((post) => {
-// #4
           expect(post.topicId).toBe(newTopic.id);
           done();
 
@@ -123,4 +132,5 @@ describe("Post", () => {
     });
 
   });
+
 });

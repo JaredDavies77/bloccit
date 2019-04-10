@@ -61,10 +61,10 @@ describe("routes : topics", () => {
   
         it("should create a new topic and redirect", (done) => {
   
-  //#1
+
           request.post(options,
   
-  //#2
+
             (err, res, body) => {
               Topic.findOne({where: {title: "blink-182 songs"}})
               .then((topic) => {
@@ -96,16 +96,16 @@ describe("routes : topics", () => {
 
         it("should delete the topic with the associated ID", (done) => {
    
-    //#1
+   
           Topic.all()
           .then((topics) => {
    
-    //#2
+    
             const topicCountBeforeDelete = topics.length;
    
             expect(topicCountBeforeDelete).toBe(1);
    
-    //#3
+    
             request.post(`${base}${this.topic.id}/destroy`, (err, res, body) => {
               Topic.all()
               .then((topics) => {
@@ -142,12 +142,12 @@ describe("routes : topics", () => {
                 description: "There are a lot of them"
               }
             };
-   //#1
+  
             request.post(options,
               (err, res, body) => {
    
               expect(err).toBeNull();
-   //#2
+ 
               Topic.findOne({
                 where: { id: this.topic.id }
               })
@@ -158,6 +158,6 @@ describe("routes : topics", () => {
             });
         });
     });
-
-    
 });
+
+
