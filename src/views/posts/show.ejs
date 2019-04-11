@@ -18,7 +18,7 @@
       <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/flairs/new" class="btn btn-success">Add Flair</a>
       
       <p><%= post.body %></p>
-      <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/flairs/edit" class="btn btn-warning">Edit</a>
+      <a href="/topics/<%= post.topicId %>/posts/<%= post.id %>/edit" class="btn btn-warning">Edit</a>
       <form style="display:initial" action="/topics/<%= post.topicId %>/posts/<%= post.id %>/destroy" method="post">
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>

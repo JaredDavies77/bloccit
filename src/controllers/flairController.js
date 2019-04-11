@@ -6,14 +6,15 @@ module.exports = {
     },
     create(req, res, next) {
         let newFlair = {
-            name: req.body.title,
-            color: req.body.body,
+            name: req.body.name,
+            color: req.body.color,
             postId: req.params.postId,
             id: req.params.id,
             topicId: req.params.topicId
         };
         flairQueries.addFlair(newFlair, (err, flair) => {
             if(err) {
+                console.log(err);
                 res.redirect(500, "/posts/:postId");
             } else {
                 res.redirect(303, `/topics/${newFlair.topicId}/posts/${newFlair.postId}`);

@@ -70,11 +70,13 @@ describe("routes : flairs", () => {
       };
       request.post(options,
         (err, res, body) => {
+
+          
           Flair.findOne({where: {name: "Awesome Flair"}})
           .then((post) => {
 
             expect(post.name).toBe("Awesome Flair");
-            expect(post.body).toBe("Orange");
+            expect(post.color).toBe("Orange");
             done();
           })
           .catch((err) => {
