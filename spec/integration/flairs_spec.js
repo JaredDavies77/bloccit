@@ -6,6 +6,8 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const Flair = require("../../src/db/models").Flair;
+const User = require("../../src/db/models").User;
+
 
 describe("routes : flairs", () => {
 
@@ -13,8 +15,15 @@ describe("routes : flairs", () => {
     this.topic;
     this.post;
     this.flair;
+    this.user;
 
     sequelize.sync({force: true}).then((res) => {
+      User.create({
+        email: "starman@tesla.com",
+        password: "Trekkie4lyfe"
+      })
+      .then((user) => {
+        this.user = user; //store the user
 
       Topic.create({
         title: "Winter Games",
@@ -26,10 +35,12 @@ describe("routes : flairs", () => {
         Post.create({
           title: "Snowball Fighting",
           body: "So much snow!",
-          topicId: this.topic.id
+          topicId: this.topic.id,
+          userId: this.user.id
           })
           .then((post) => {
           this.post = post;
+         
           Flair.create({
               name: "Flair",
               color: "Blue",
@@ -37,12 +48,15 @@ describe("routes : flairs", () => {
           })
             .then((flair) => {
             this.flair = flair;
-            done();
-            })
-        })
+            done();           
+           })
+
         .catch((err) => {
           console.log(err);
           done();
+        });
+
+        });
         });
       });
     });

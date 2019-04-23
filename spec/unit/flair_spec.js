@@ -2,6 +2,8 @@ const sequelize = require("../../src/db/models/index").sequelize;
 const Topic = require("../../src/db/models").Topic;
 const Post = require("../../src/db/models").Post;
 const Flair = require("../../src/db/models").Flair;
+const User = require("../../src/db/models").User;
+
 
 describe("Flair", () => {
 
@@ -9,7 +11,14 @@ describe("Flair", () => {
       this.topic;
       this.post;
       this.flair;
+      this.user;
       sequelize.sync({force: true}).then((res) => {
+        User.create({
+          email: "starman@tesla.com",
+          password: "Trekkie4lyfe"
+        })
+        .then((user) => {
+          this.user = user; //store the user
         Topic.create({
           title: "Expeditions to Alpha Centauri",
           description: "A compilation of reports from recent visits to the star system."
@@ -19,7 +28,8 @@ describe("Flair", () => {
           Post.create({
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
-            topicId: this.topic.id
+            topicId: this.topic.id,
+            userId: this.user.id
           })
           .then((post) => {
             this.post = post;
@@ -31,6 +41,7 @@ describe("Flair", () => {
             .then((flair) => {
                 this.flair = flair;
                 done();
+            })
             })
           });
         })
@@ -44,11 +55,10 @@ describe("Flair", () => {
 
     describe("#create()", () => {
 
-        it("should create a flair object with a name, color, and assigned post", (done) => {
+        it("should create a flair object with a name and color", (done) => {
           Flair.create({
             name: "Flair",
             color: "Red",
-            postId: this.post.id
           })
           .then((flair) => {
             expect(flair.name).toBe("Flair");
@@ -79,7 +89,7 @@ describe("Flair", () => {
         })
         .catch((err) => {
    
-          expect(err.message).toContain("Flair.name cannot be null");
+          expect(err.message).toContain("Flair.color cannot be null");
           expect(err.message).toContain("Flair.postId cannot be null");
           done();
    
@@ -91,7 +101,8 @@ describe("Flair", () => {
             Post.create({
             title: "My first visit to Proxima Centauri b",
             body: "I saw some rocks.",
-            topicId: this.topic.id
+            topicId: this.topic.id,
+            userId: this.user.id
           })
           .then((newPost) => {
             expect(this.flair.postId).toBe(this.post.id);

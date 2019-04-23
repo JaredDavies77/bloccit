@@ -12,7 +12,8 @@
      body: faker.hacker.phrase(),
      createdAt: new Date(),
      updatedAt: new Date(),
-     topicId: Number (1, 15)
+     topicId: Number (1, 15),
+     userId: Number (1, 2)
    });
  }
 

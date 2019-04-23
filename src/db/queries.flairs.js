@@ -22,10 +22,12 @@ module.exports = {
         })
     },
     deleteFlair(id, callback) {
+        console.log(id);
         return Flair.destroy({
             where: { id }
         })
         .then((deletedRecordsCount) => {
+            console.log("???", deletedRecordsCount);
             callback(null, deletedRecordsCount);
         })
         .catch((err) => {
